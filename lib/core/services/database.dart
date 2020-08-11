@@ -11,16 +11,10 @@ class DatabaseService {
       Firestore.instance.collection('users');
 
   // updata user database collection
-  Future<void> updateUserData(String uid, String name, String email, String job,
-      num tel, String image) async {
-    return await userCollection.document(uid).setData({
-      'uid': uid,
-      'name': name,
-      'email': email,
-      'job': job,
-      'tel': tel,
-      'image': image
-    });
+  Future<void> updateUserData(
+      String uid, String name, String email, String job, String image) async {
+    return await userCollection.document(uid).setData(
+        {'uid': uid, 'name': name, 'email': email, 'job': job, 'image': image});
   }
 
   // users List from snapshop database
@@ -32,7 +26,6 @@ class DatabaseService {
         name: doc.data['name'] ?? '',
         email: doc.data['email'] ?? '',
         job: doc.data['job'] ?? '',
-        tel: doc.data['tel'] ?? '',
         image: doc.data['image'] ?? '',
       );
     }).toList();
@@ -45,7 +38,6 @@ class DatabaseService {
       name: snapshot.data['name'],
       email: snapshot.data['email'],
       job: snapshot.data['job'],
-      tel: snapshot.data['tel'],
       image: snapshot.data['image'],
     );
   }
@@ -58,5 +50,10 @@ class DatabaseService {
   // get user doc stream
   Stream<UserProfile> get userProfile {
     return userCollection.document(uid).snapshots().map(_userDataFromDB);
+  }
+
+  // get user doc stream by name for search
+  getUserByName(String username) {
+    return userCollection.where("name", isEqualTo: username);
   }
 }

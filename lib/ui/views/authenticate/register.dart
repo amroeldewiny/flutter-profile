@@ -140,6 +140,24 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                     SizedBox(height: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 14,
+                                    decoration: TextDecoration.underline),
+                              )),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 12.0),
                     Text(
                       error,
                       style: TextStyle(

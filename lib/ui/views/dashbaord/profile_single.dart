@@ -1,32 +1,23 @@
-import 'package:baobabart/core/services/database.dart';
-import 'package:baobabart/ui/widgets/baobabbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:baobabart/ui/widgets/baobabtheme.dart';
+import 'package:baobabart/ui/widgets/baobabappbar.dart';
+import 'package:baobabart/ui/widgets/baobabdawer.dart';
 import 'package:baobabart/core/models/profile.dart';
 
 class ProfileSingle extends StatelessWidget {
   final Profile profile;
-  ProfileSingle({this.profile});
+  ProfileSingle({Key key, this.profile}) : super(key: key);
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _drawerKey,
+      drawer: BaobabDrawer(profile: this.profile),
       backgroundColor: BaobabTheme.primary,
-      appBar: AppBar(
-        title: Text(
-          "Baobab Art",
-          style: TextStyle(
-            fontFamily: 'GreatVibes',
-            fontSize: 40.0,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context, false),
-        ),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: BaobabTheme.secondary,
+      appBar: BaobabAppBar(
+        title: 'Profile',
+        callback: () => _drawerKey.currentState.openDrawer(),
       ),
       //body: Center(child: Text(userProfile.email)),
       body: SingleChildScrollView(
@@ -76,6 +67,14 @@ class ProfileSingle extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        label: Text('Chat'),
+        icon: Icon(Icons.chat_bubble),
+        backgroundColor: BaobabTheme.dark,
       ),
     );
   }

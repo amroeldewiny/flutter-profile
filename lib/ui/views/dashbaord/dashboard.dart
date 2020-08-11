@@ -5,10 +5,15 @@ import 'package:baobabart/core/models/profile.dart';
 import 'package:baobabart/ui/widgets/baobabtheme.dart';
 import 'package:provider/provider.dart';
 import 'package:baobabart/ui/views/dashbaord/profile_list.dart';
+import 'package:baobabart/ui/widgets/baobabappbar.dart';
+import 'package:baobabart/ui/widgets/baobabdawer.dart';
 
 class Dashboard extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService _db = DatabaseService();
+  final Profile profile;
+  Dashboard({Key key, this.profile}) : super(key: key);
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +21,11 @@ class Dashboard extends StatelessWidget {
       value: _db.profiles,
       child: Scaffold(
         backgroundColor: BaobabTheme.primary,
-        appBar: AppBar(
-          title: Text(
-            "Baobab Art",
-            style: TextStyle(
-              fontFamily: 'GreatVibes',
-              fontSize: 40.0,
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            ),
-          ],
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: BaobabTheme.secondary,
+        key: _drawerKey,
+        drawer: BaobabDrawer(profile: this.profile),
+        appBar: BaobabAppBar(
+          title: 'Profiles',
+          callback: () => _drawerKey.currentState.openDrawer(),
         ),
         body: Container(
           child: ProfilesList(),
@@ -43,10 +34,3 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
-
-/*        leading: IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () async {
-              await _auth.signOut();
-            },
-          ),* */

@@ -1,3 +1,4 @@
+import 'package:baobabart/ui/views/dashbaord/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:baobabart/core/services/auth.dart';
 import 'package:baobabart/ui/widgets/baobabtheme.dart';
@@ -94,7 +95,15 @@ class _SignInState extends State<SignIn> {
                           if (result == null) {
                             setState(() {
                               loading = false;
-                              error = error.toString();
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: Text(
+                                          'Please Check you email Or your password'),
+                                    );
+                                  });
+                              //error = error.toString();
                             });
                           }
                         }
@@ -123,6 +132,30 @@ class _SignInState extends State<SignIn> {
                                 decoration: TextDecoration.underline),
                           ),
                         ),
+                      ],
+                    ),
+                    SizedBox(height: 12.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Dashboard()));
+                          },
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 14,
+                                    decoration: TextDecoration.underline),
+                              )),
+                        )
                       ],
                     ),
                     SizedBox(height: 12.0),

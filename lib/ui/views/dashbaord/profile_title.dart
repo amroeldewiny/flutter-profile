@@ -27,6 +27,11 @@ class ProfileTitle extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => ProfileSingle(profile: profile)));
           },
+          onLongPress: () {
+            // do something else
+          },
+          trailing: Icon(Icons.more_vert),
+          isThreeLine: true,
         ),
       ),
     );
