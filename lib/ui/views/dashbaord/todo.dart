@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:baobabart/core/models/profile.dart';
 import 'package:baobabart/ui/widgets/baobabtheme.dart';
 import 'package:baobabart/ui/widgets/baobabappbar.dart';
 import 'package:baobabart/ui/widgets/baobabdawer.dart';
 
 class Todo extends StatefulWidget {
+  final Profile profile;
+  Todo({Key key, this.profile}) : super(key: key);
   @override
   _TodoState createState() => _TodoState();
 }
