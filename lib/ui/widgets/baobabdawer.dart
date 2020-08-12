@@ -86,9 +86,7 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                           await Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dashboard(
-                                        profile: this.profile,
-                                      )));
+                                  builder: (context) => Dashboard()));
                         },
                       ),
                       ListTile(
@@ -115,12 +113,8 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                         ),
                         leading: Icon(Icons.apps),
                         onTap: () async {
-                          await Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Todo(
-                                        profile: this.profile,
-                                      )));
+                          await Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Todo()));
                         },
                       ),
                       ListTile(
@@ -134,9 +128,7 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                           await Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Settings(
-                                        profile: this.profile,
-                                      )));
+                                  builder: (context) => Settings()));
                         },
                       ),
                       ListTile(

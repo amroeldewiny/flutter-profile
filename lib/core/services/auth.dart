@@ -37,6 +37,9 @@ class AuthService {
       // create new document for the new user with uid
       await DatabaseService(uid: user.uid).updateUserData(
           user.uid, 'New User', email, 'working in Nikkel Art', 'no_user.png');
+      // create new document todo for each user with uid
+      await DatabaseService(uid: user.uid).updateTodoData(
+          user.uid, 'First todo', 'Update my todos list', false);
       return _firebaseUser(user);
     } catch (error) {
       print(error.toString());

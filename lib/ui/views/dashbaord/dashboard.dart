@@ -11,8 +11,7 @@ import 'package:baobabart/ui/widgets/baobabdawer.dart';
 class Dashboard extends StatelessWidget {
   final AuthService _auth = AuthService();
   final DatabaseService _db = DatabaseService();
-  final Profile profile;
-  Dashboard({Key key, this.profile}) : super(key: key);
+
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -22,7 +21,7 @@ class Dashboard extends StatelessWidget {
       child: Scaffold(
         backgroundColor: BaobabTheme.primary,
         key: _drawerKey,
-        drawer: BaobabDrawer(profile: this.profile),
+        drawer: BaobabDrawer(),
         appBar: BaobabAppBar(
           title: 'Profiles',
           callback: () => _drawerKey.currentState.openDrawer(),

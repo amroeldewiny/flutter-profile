@@ -5,8 +5,6 @@ import 'package:baobabart/ui/widgets/baobabappbar.dart';
 import 'package:baobabart/ui/widgets/baobabdawer.dart';
 
 class Settings extends StatefulWidget {
-  final Profile profile;
-  Settings({Key key, this.profile}) : super(key: key);
   @override
   _SettingsState createState() => _SettingsState();
 }
