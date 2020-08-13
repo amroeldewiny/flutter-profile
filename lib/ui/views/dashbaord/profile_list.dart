@@ -4,6 +4,8 @@ import 'package:baobabart/core/models/profile.dart';
 import 'package:baobabart/ui/views/dashbaord/profile_title.dart';
 
 class ProfilesList extends StatefulWidget {
+  final Profile profile;
+  ProfilesList({Key key, this.profile}) : super(key: key);
   @override
   _ProfilesListState createState() => _ProfilesListState();
 }

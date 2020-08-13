@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:baobabart/core/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:baobabart/core/services/database.dart';
+import 'package:baobabart/core/services/task.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -38,13 +40,36 @@ class AuthService {
       await DatabaseService(uid: user.uid).updateUserData(
           user.uid, 'New User', email, 'working in Nikkel Art', 'no_user.png');
       // create new document todo for each user with uid
-      await DatabaseService(uid: user.uid).updateTodoData(
+      await TaskService(uid: user.uid).updateTaskData(
           user.uid, 'First todo', 'Update my todos list', false);
       return _firebaseUser(user);
     } catch (error) {
       print(error.toString());
       return null;
     }
+  }
+
+  // get current user
+  Future<FirebaseUser> getCurrentUser() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user;
+  }
+
+  // verification to each new registred user
+  Future<void> sendEmailVerification() async {
+    FirebaseUser user = await _auth.currentUser();
+    user.sendEmailVerification();
+  }
+
+  // check user get verified email
+  Future<bool> isEmailVerified() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.isEmailVerified;
+  }
+
+  Future<void> resetMail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
+    return null;
   }
 
   // Logout user

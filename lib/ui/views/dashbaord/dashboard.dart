@@ -9,6 +9,8 @@ import 'package:baobabart/ui/widgets/baobabappbar.dart';
 import 'package:baobabart/ui/widgets/baobabdawer.dart';
 
 class Dashboard extends StatelessWidget {
+  final Profile profile;
+  Dashboard({Key key, this.profile}) : super(key: key);
   final AuthService _auth = AuthService();
   final DatabaseService _db = DatabaseService();
 
@@ -21,7 +23,7 @@ class Dashboard extends StatelessWidget {
       child: Scaffold(
         backgroundColor: BaobabTheme.primary,
         key: _drawerKey,
-        drawer: BaobabDrawer(),
+        drawer: BaobabDrawer(profile: this.profile),
         appBar: BaobabAppBar(
           title: 'Profiles',
           callback: () => _drawerKey.currentState.openDrawer(),

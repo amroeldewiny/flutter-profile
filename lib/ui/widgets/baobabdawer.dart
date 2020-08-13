@@ -86,7 +86,9 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                           await Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dashboard()));
+                                  builder: (context) => Dashboard(
+                                        profile: this.profile,
+                                      )));
                         },
                       ),
                       ListTile(

@@ -24,6 +24,8 @@ class _SignInState extends State<SignIn> {
   String password;
   String conPass;
 
+  String forgetEmail;
+
   @override
   Widget build(BuildContext context) {
     return loading
@@ -140,10 +142,38 @@ class _SignInState extends State<SignIn> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Dashboard()));
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content: SizedBox(
+                                      height: 150,
+                                      child: Center(
+                                          child: Column(
+                                        children: [
+                                          TextFormField(
+                                            style: BaobabFieldStyle(),
+                                            validator: (value) => value.isEmpty
+                                                ? 'Enter an email'
+                                                : null,
+                                            onChanged: (value) => setState(() =>
+                                                forgetEmail = value.trim()),
+                                            decoration: BaobabInputDecoration(
+                                                "Enter your email....",
+                                                Icons.email),
+                                          ),
+                                          SizedBox(
+                                            height: 20.0,
+                                          ),
+                                          BaobabButton(
+                                            text: 'Send',
+                                            callback: () async {},
+                                          ),
+                                        ],
+                                      )),
+                                    ),
+                                  );
+                                });
                           },
                           child: Container(
                               padding: EdgeInsets.symmetric(
