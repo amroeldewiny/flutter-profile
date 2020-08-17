@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:baobabart/core/models/user.dart';
 import 'package:baobabart/core/services/database.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:baobabart/ui/widgets/baobabappbar.dart';
 import 'package:baobabart/ui/widgets/baobabdawer.dart';
 import 'package:baobabart/ui/widgets/baobabloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:baobabart/ui/views/dashbaord/dashboard.dart';
 import 'package:baobabart/ui/widgets/baobabbutton.dart';
 import 'package:baobabart/ui/widgets/baobabinput.dart';
@@ -23,6 +25,7 @@ class _ProfileMeState extends State<ProfileMe> {
   String currentName;
   String currentJob;
   String currentImage;
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -79,19 +82,56 @@ class _ProfileMeState extends State<ProfileMe> {
                           Positioned(
                             bottom: 1,
                             right: 1,
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              child: Icon(
-                                Icons.add_a_photo,
-                                color: BaobabTheme.primary,
+                            child: GestureDetector(
+                              onTap: () async {
+                                return showCupertinoModalPopup<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CupertinoActionSheet(
+                                      title: Text('Profile Upload'),
+                                      message: Text(
+                                          'Please select your profile image form gallery or camera.'),
+                                      actions: <Widget>[
+                                        CupertinoActionSheetAction(
+                                          child: Text('Gallery'),
+                                          onPressed: () async {
+                                            await ImagePicker.pickImage(
+                                                source: ImageSource.gallery);
+                                          },
+                                        ),
+                                        CupertinoActionSheetAction(
+                                          child: Text('Camera'),
+                                          onPressed: () async {
+                                            await ImagePicker.pickImage(
+                                                source: ImageSource.camera);
+                                          },
+                                        ),
+                                      ],
+                                      cancelButton: CupertinoActionSheetAction(
+                                        isDefaultAction: true,
+                                        child: Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                child: Icon(
+                                  Icons.add_a_photo,
+                                  color: BaobabTheme.primary,
+                                ),
+                                decoration: BoxDecoration(
+                                    color: BaobabTheme.secondary,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
                               ),
-                              decoration: BoxDecoration(
-                                  color: BaobabTheme.secondary,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

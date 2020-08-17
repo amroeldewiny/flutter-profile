@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:baobabart/core/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:baobabart/core/models/profile.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
   final String uid;
@@ -30,6 +31,12 @@ class DatabaseService {
         image: doc.data['image'] ?? '',
       );
     }).toList();
+  }
+
+  Future uploadFile(img) async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    StorageReference reference = FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = reference.putFile(img);
   }
 
   // user data from snapshots
