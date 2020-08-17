@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:baobabart/core/models/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskService {

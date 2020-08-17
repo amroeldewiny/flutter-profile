@@ -7,6 +7,7 @@ import 'package:baobabart/ui/views/dashbaord/dashboard.dart';
 import 'package:baobabart/ui/views/dashbaord/profile_single.dart';
 import 'package:baobabart/ui/views/dashbaord/todo.dart';
 import 'package:baobabart/ui/views/dashbaord/settings.dart';
+import 'package:baobabart/ui/views/dashbaord/profile_me.dart';
 import 'package:provider/provider.dart';
 
 class BaobabDrawer extends StatefulWidget {
@@ -102,8 +103,8 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                           await Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfileSingle(
-                                        profile: this.profile,
+                                  builder: (context) => ProfileMe(
+                                      //profile: this.profile,
                                       )));
                         },
                       ),
@@ -115,8 +116,12 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                         ),
                         leading: Icon(Icons.apps),
                         onTap: () async {
-                          await Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Todo()));
+                          await Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Todo(
+                                        profile: this.profile,
+                                      )));
                         },
                       ),
                       ListTile(
@@ -130,7 +135,9 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                           await Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Settings()));
+                                  builder: (context) => Settings(
+                                        profile: this.profile,
+                                      )));
                         },
                       ),
                       ListTile(

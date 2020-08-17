@@ -55,6 +55,12 @@ class AuthService {
     return user;
   }
 
+  currentUser() async {
+    final FirebaseUser user = await _auth.currentUser();
+    final uid = user.uid;
+    return uid;
+  }
+
   // verification to each new registred user
   Future<void> sendEmailVerification() async {
     FirebaseUser user = await _auth.currentUser();
