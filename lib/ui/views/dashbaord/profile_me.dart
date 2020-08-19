@@ -88,7 +88,7 @@ class _ProfileMeState extends State<ProfileMe> {
                             child: ClipOval(
                               child: currentImage != null
                                   ? Image.network(
-                                      currentImage,
+                                      userProfile.image,
                                       fit: BoxFit.cover,
                                     )
                                   : Image.asset(

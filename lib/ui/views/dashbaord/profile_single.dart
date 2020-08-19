@@ -30,8 +30,9 @@ class ProfileSingle extends StatelessWidget {
                 CircleAvatar(
                   radius: 100,
                   backgroundColor: Colors.transparent,
-                  backgroundImage:
-                      Image.asset('assets/images/no_user.png').image,
+                  backgroundImage: profile.image != null
+                      ? Image.network(profile.image).image
+                      : Image.asset('assets/images/no_user.png').image,
                 ),
                 SizedBox(
                   height: 10,

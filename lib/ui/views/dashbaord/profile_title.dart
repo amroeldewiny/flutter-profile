@@ -16,7 +16,9 @@ class ProfileTitle extends StatelessWidget {
           leading: CircleAvatar(
             radius: 25.0,
             backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage('assets/images/no_user.png'),
+            backgroundImage: profile.image != null
+                ? Image.network(profile.image).image
+                : Image.asset('assets/images/no_user.png'),
           ),
           title: Text(profile.name),
           subtitle: Text('Email address:  ${profile.email}'),
