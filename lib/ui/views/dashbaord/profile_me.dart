@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:baobabart/core/models/user.dart';
@@ -22,9 +25,23 @@ class _ProfileMeState extends State<ProfileMe> {
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey<ScaffoldState>();
 
   // form values
+  File imageFile;
   String currentName;
   String currentJob;
   String currentImage;
+
+  Future uploadFile() async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    StorageReference reference = FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = reference.putFile(imageFile);
+    StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
+    storageTaskSnapshot.ref.getDownloadURL().then((downloadUrl) {
+      currentImage = downloadUrl;
+      setState(() {
+        currentImage = downloadUrl;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +87,10 @@ class _ProfileMeState extends State<ProfileMe> {
                             backgroundColor: Colors.transparent,
                             child: ClipOval(
                               child: currentImage != null
-                                  ? userProfile.image
+                                  ? Image.network(
+                                      currentImage,
+                                      fit: BoxFit.cover,
+                                    )
                                   : Image.asset(
                                       'assets/images/no_user.png',
                                       height: 150,
@@ -94,16 +114,31 @@ class _ProfileMeState extends State<ProfileMe> {
                                       actions: <Widget>[
                                         CupertinoActionSheetAction(
                                           child: Text('Gallery'),
+                                          isDefaultAction: true,
                                           onPressed: () async {
-                                            await ImagePicker.pickImage(
-                                                source: ImageSource.gallery);
+                                            var image =
+                                                await ImagePicker.pickImage(
+                                                    source:
+                                                        ImageSource.gallery);
+                                            setState(() {
+                                              imageFile = image;
+                                            });
+                                            uploadFile();
+                                            Navigator.pop(context);
                                           },
                                         ),
                                         CupertinoActionSheetAction(
                                           child: Text('Camera'),
+                                          isDefaultAction: true,
                                           onPressed: () async {
-                                            await ImagePicker.pickImage(
-                                                source: ImageSource.camera);
+                                            var image =
+                                                await ImagePicker.pickImage(
+                                                    source: ImageSource.camera);
+                                            setState(() {
+                                              imageFile = image;
+                                            });
+                                            uploadFile();
+                                            Navigator.pop(context);
                                           },
                                         ),
                                       ],
@@ -111,7 +146,7 @@ class _ProfileMeState extends State<ProfileMe> {
                                         isDefaultAction: true,
                                         child: Text('Cancel'),
                                         onPressed: () {
-                                          Navigator.pop(context, 'Cancel');
+                                          Navigator.pop(context);
                                         },
                                       ),
                                     );
@@ -168,8 +203,8 @@ class _ProfileMeState extends State<ProfileMe> {
                             user.uid,
                             currentName ?? snapshot.data.name,
                             userProfile.email,
-                            currentJob ?? snapshot.data.name,
-                            userProfile.image,
+                            currentJob ?? snapshot.data.job,
+                            currentImage ?? snapshot.data.image,
                           );
                           await Navigator.pushReplacement(
                               context,
