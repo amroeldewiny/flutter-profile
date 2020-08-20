@@ -40,14 +40,20 @@ class _BaobabDrawerState extends State<BaobabDrawer> {
                   child: Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          "assets/images/no_user.png",
-                          width: 60.0,
-                          height: 60.0,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(100.0),
+                          child: userProfile.image != null
+                              ? Image.network(
+                                  userProfile.image,
+                                  fit: BoxFit.cover,
+                                  height: 50,
+                                  width: 50,
+                                )
+                              : Image.asset(
+                                  'assets/images/no_user.png',
+                                  height: 150,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                )),
                       SizedBox(
                         width: 8.0,
                       ),

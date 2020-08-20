@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,15 +86,17 @@ class _ProfileMeState extends State<ProfileMe> {
                             backgroundColor: Colors.transparent,
                             child: ClipOval(
                               child: currentImage != null
-                                  ? Image.network(
-                                      userProfile.image,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.asset(
+                                  ? Image.asset(
                                       'assets/images/no_user.png',
                                       height: 150,
                                       width: 150,
                                       fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      userProfile.image,
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
                                     ),
                             ),
                           ),
